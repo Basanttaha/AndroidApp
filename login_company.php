@@ -17,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         exit();
     }
 
-    $sql = "SELECT * FROM companies WHERE Email = ?";
+    $sql = "SELECT * FROM companies WHERE email = ?";
     $stmt = $con->prepare($sql);
     $stmt->bind_param("s", $email);
     $stmt->execute();
@@ -31,7 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     $company = $result->fetch_assoc();
 
-    if (!password_verify($password, $company['Password'])) {
+    if (!password_verify($password, $company['password'])) {
         http_response_code(401);
         echo json_encode(["error" => "Invalid email or password."]);
         exit();
@@ -40,7 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $payload = [
         'iat' => time(),
         'exp' => time() + (60 * 60), 
-        'company_email' => $company['Email'],
+        'company_email' => $company['email'],
         'Company_id' => $company['Company_id'] 
     ];
 
