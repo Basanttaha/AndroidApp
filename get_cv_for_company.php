@@ -30,17 +30,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
             exit();
         }
 
-        // الحصول على الـ user_id من الـ body
+        // الحصول على الـ User_id من الـ body
         $data = json_decode(file_get_contents("php://input"), true);
-        $user_id = $data['user_id'] ?? null;
+        $user_id = $data['User_id'] ?? null; // التأكد من استخدام User_id
 
         if (!$user_id) {
             echo json_encode(["error" => "User ID is required."]);
             exit();
         }
 
-        // استعلام لجلب بيانات الـ CV للمستخدم بناءً على الـ user_id
-        $sql = "SELECT * FROM curriculum_vitae WHERE user_id = ?";
+        // استعلام لجلب بيانات الـ CV للمستخدم بناءً على الـ User_id
+        $sql = "SELECT * FROM curriculum_vitae WHERE User_id = ?"; // التأكد من استخدام User_id في الاستعلام
         $stmt = $con->prepare($sql);
         $stmt->bind_param("i", $user_id);
         $stmt->execute();
@@ -50,7 +50,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
             $cv = $result->fetch_assoc();
 
             // استعلام للحصول على بيانات المستخدم
-            $sql_user = "SELECT User_name, Phone FROM users WHERE User_id = ?";
+            $sql_user = "SELECT User_name, Phone FROM users WHERE User_id = ?"; // التأكد من استخدام User_id هنا أيضاً
             $stmt_user = $con->prepare($sql_user);
             $stmt_user->bind_param("i", $user_id);
             $stmt_user->execute();
