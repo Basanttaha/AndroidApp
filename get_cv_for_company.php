@@ -21,7 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     try {
         $token = str_replace("Bearer ", "", $token);
         $decoded = JWT::decode($token, new Key($secretKey, 'HS256'));
-        $company_id = $decoded->company_id; // الحصول على company_id من التوكن
+        $company_id = $decoded->Company_id; // الحصول على company_id من التوكن
 
         if (!$company_id) {
             echo json_encode(["error" => "Company ID is required."]);
