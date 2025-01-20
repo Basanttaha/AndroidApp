@@ -8,7 +8,7 @@ header('Content-Type: application/json');
 
 $secretKey = "9%fG8@h7!wQ4\$zR2*vX3&bJ1#nL6!mP5"; 
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     // الحصول على التوكن من الـ headers
     $headers = getallheaders();
     $token = $headers['Authorization'] ?? null;
